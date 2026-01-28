@@ -1,0 +1,13 @@
+# Keep Python function bundles smaller
+__pycache__
+*.py[cod]
+*.pyo
+.pytest_cache
+.coverage
+htmlcov
+.git
+*.md
+!README.md
+.env
+.env.*
+!.env.example
