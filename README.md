@@ -58,6 +58,15 @@ Then open **http://localhost:8080** in your browser.
 
 The app is served at the root via rewrites to `/api`. No environment variables are required for basic use. For large PDFs, consider increasing the function timeout in `vercel.json` (Pro plan allows longer limits).
 
+**Note:** Vercel Serverless Functions have a 250 MB (unzipped) size limit. This app’s dependencies (NiceGUI, pandas, pdfplumber, etc.) can exceed that limit. If the build fails with “exceeded the unzipped maximum size of 250 MB”, deploy to **Railway** or **Render** instead (see below).
+
+### Deploy to Railway or Render (recommended if Vercel hits the 250 MB limit)
+
+- **Railway:** Connect the repo at [railway.app](https://railway.app). Set start command to `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+- **Render:** Create a Web Service, connect the repo. Build: `pip install -r requirements.txt`. Start: `uvicorn main:app --host 0.0.0.0 --port $PORT`.
+
+Both use the same `main:app` (FastAPI) and serve the app at the root. No extra config needed beyond the start command.
+
 ---
 
 ## Project structure

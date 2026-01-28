@@ -391,7 +391,9 @@ if __name__ in {"__main__", "__mp_main__"}:
     # Local: ui.run() serves at http://localhost:8080/
     ui.run(title="PDF Extractor", port=8080, dark=None)
 else:
-    # Vercel (api/index.py imports main): mount at /api for serverless
+    # Vercel: mount at /api; Railway/Render: mount at / so uvicorn main:app works
+    import os
     from fastapi import FastAPI
     app = FastAPI()
-    ui.run_with(app, mount_path="/api")
+    mount_path = "/api" if os.environ.get("VERCEL") else "/"
+    ui.run_with(app, mount_path=mount_path)
